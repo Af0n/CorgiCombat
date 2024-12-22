@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class HexTest : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject prefab;
+
     void Start()
     {
-        
+        TestSimpleHex();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void TestSimpleHex(){
+        for(int x=-1; x<2; x++){
+            for(int y=-1; y<2; y++){
+                for(int z=-1; z<2; z++){
+                    GameObject obj = Instantiate(prefab);
+                    obj.GetComponent<HexSlot>().SetHexPos(x, y, z);
+                }
+            }
+        }
     }
 }
