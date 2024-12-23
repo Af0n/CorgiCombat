@@ -10,12 +10,10 @@ public class HexTest : MonoBehaviour
     }
 
     public void TestSimpleHex(){
-        for(int x=-1; x<2; x++){
-            for(int y=-1; y<2; y++){
-                for(int z=-1; z<2; z++){
-                    GameObject obj = Instantiate(prefab);
-                    obj.GetComponent<HexSlot>().SetHexPos(x, y, z);
-                }
+        for(int x=-2; x<3; x++){
+            for(int y=-2; y<3; y++){
+                GameObject obj = Instantiate(prefab);
+                obj.GetComponent<HexSlot>().SetHexPos(x, y);
             }
         }
     }

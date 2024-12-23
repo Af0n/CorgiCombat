@@ -1,32 +1,42 @@
-using Unity.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class HexSlot : MonoBehaviour
 {
-    // x: - left, + right
-    // y: - top left, + bottom right
-    // z: - bottom left, + top right
-    public Vector3 hexPos;
+    public Vector2 HexPos;
+
+    private SpriteRenderer spriteRenderer;
     private Vector3 worldPos;
 
     public static Vector3 HexPosToWorldPos(Vector3 hex){
-        float x = hex.x + (hex.y * 0.5f) + (hex.z * 0.5f);
-        float y = (hex.y * -0.75f) + (hex.z * 0.75f);
+        float x = hex.x + Mathf.Abs((hex.y % 2)/2);
+        float y = hex.y * 0.75f;
         return new Vector3(x, y, 0f);
     }
 
     private void Awake() {
-        worldPos = HexPosToWorldPos(hexPos);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        worldPos = HexPosToWorldPos(HexPos);
         transform.position = worldPos;
     }
 
-    public void SetHexPos(float x, float y, float z){
-        hexPos.x = x;
-        hexPos.y = y;
-        hexPos.z = z;
+    public void SetHexPos(float x, float y){
+        HexPos.x = x;
+        HexPos.y = y;
 
-        worldPos = HexPosToWorldPos(hexPos);
+        worldPos = HexPosToWorldPos(HexPos);
         transform.position = worldPos;
+    }
+
+    private void OnMouseEnter() {
+        spriteRenderer.color = Color.red;
+    }
+
+    private void OnMouseExit() {
+        spriteRenderer.color = Color.white;
+    }
+
+    private void OnMouseDown() {
+        Debug.Log(HexPos);
     }
 }
