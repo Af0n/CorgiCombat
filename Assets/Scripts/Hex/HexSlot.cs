@@ -28,15 +28,23 @@ public class HexSlot : MonoBehaviour
         transform.position = worldPos;
     }
 
+    public void SetTileColor(Color c){
+        spriteRenderer.color = c;
+    }
+
     private void OnMouseEnter() {
-        spriteRenderer.color = Color.red;
+        SetTileColor(Color.red);
     }
 
     private void OnMouseExit() {
-        spriteRenderer.color = Color.white;
+        SetTileColor(Color.white);
     }
 
     private void OnMouseDown() {
         Debug.Log(HexPos);
+
+        HexSlot[] test = transform.parent.GetComponent<HexBoard>().GetNeighbors(HexPos);
+
+        transform.parent.GetComponent<HexBoard>().HighlightArray(test);
     }
 }
